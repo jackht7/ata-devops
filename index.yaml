@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  blockscout-stack:
+  - apiVersion: v2
+    appVersion: 6.9.0
+    created: "2024-12-01T16:11:18.001224453Z"
+    description: A Helm chart to deploy Blockscout stack
+    digest: 153ea79eab68a90db407e4cc0014abd45b21e2225405364d30c9793310ffa41d
+    name: blockscout-stack
+    type: application
+    urls:
+    - https://github.com/jackht7/ata-devops/releases/download/blockscout-stack-1.8.0/blockscout-stack-1.8.0.tgz
+    version: 1.8.0
+generated: "2024-12-01T16:11:18.001230304Z"
