@@ -1,0 +1,33 @@
+{{- if .Values.blockscout.autoscaling.enabled }}
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{ include "blockscout-stack.fullname" . }}-hpa
+  labels:
+    app: {{ include "blockscout-stack.fullname" . }}-hpa
+    {{- include "blockscout-stack.labels" . | nindent 4 }}
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ include "blockscout-stack.fullname" . }}-blockscout
+  minReplicas: {{ .Values.blockscout.autoscaling.minReplicas }}
+  maxReplicas: {{ .Values.blockscout.autoscaling.maxReplicas }}
+  metrics:
+    {{- if .Values.blockscout.autoscaling.targetCPUUtilizationPercentage }}
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: {{ .Values.blockscout.autoscaling.targetCPUUtilizationPercentage }}
+    {{- end }}
+    {{- if .Values.blockscout.autoscaling.targetMemoryUtilizationPercentage }}
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: {{ .Values.blockscout.autoscaling.targetMemoryUtilizationPercentage }}
+    {{- end }}
+{{- end }}

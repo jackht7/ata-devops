@@ -140,6 +140,15 @@ blockscout:
   service:
     type: ClusterIP
     port: 80
+
+  ## AutoScaling
+  autoscaling:
+    enabled: true
+    minReplicas: 1
+    maxReplicas: 3
+    targetCPUUtilizationPercentage: 80
+    targetMemoryUtilizationPercentage: 80
+
   ## Configure ingress resource that allow you to access the blockscout installation.
   ## ref: http://kubernetes.io/docs/user-guide/ingress/
   ##
@@ -264,8 +273,12 @@ frontend:
     #   width: '320'
     #   height: '100'
     # NEXT_PUBLIC_ADMIN_SERVICE_API_HOST: https://admin-rs.services.blockscout.com
-    NEXT_PUBLIC_API_BASE_PATH: /
+    NEXT_PUBLIC_APP_PROTOCOL: http
+    NEXT_PUBLIC_API_PROTOCOL: http
+    NEXT_PUBLIC_APP_HOST: eth-sepolia.blockscout.local
     NEXT_PUBLIC_API_HOST: eth-sepolia.blockscout.local
+    NEXT_PUBLIC_API_WEBSOCKET_PROTOCOL: ws
+    NEXT_PUBLIC_API_BASE_PATH: /
     NEXT_PUBLIC_API_SPEC_URL: https://raw.githubusercontent.com/blockscout/blockscout-api-v2-swagger/main/swagger.yaml
     # NEXT_PUBLIC_CONTRACT_CODE_IDES:
     #   - title: 'Remix IDE'
