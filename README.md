@@ -43,4 +43,15 @@
    minikube service blockscout-frontend-svc
    ```
 6. HorizontalPodAutoscaler is enabled for Blockscout deployment, refer to [blockscout-hpa.yaml](./blockscout-stack/templates/blockscout-hpa.yaml)
-7. Charts release is packaged via Github [actions](./.github/workflows/release.yaml) and published on https://jackht7.github.io/ata-devops/blockscout-stack
+7. Charts release is packaged via Github [actions](./.github/workflows/release.yaml) and published on https://jackht7.github.io/ata-devops/index.yaml
+
+## Mission 3: Contract Indexer
+
+1. Replace the Grafana Cloud Prometheus `QUERY_ENDPOINT`, `INSTANCE_ID` and `API_TOKEN` in [prometheus.yml](./contract-indexer/prometheus/prometheus.yml).
+2. Replace the `INFURA_PROJECT_ID` in [docker-compose.yml](./contract-indexer/docker-compose.yml)
+3. Run the indexer and Prometheus server.
+   ```bash
+   cd contract-indexer
+   docker compose up
+   ```
+4.
