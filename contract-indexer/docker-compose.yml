@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    ports:
+      - '9090:9090'
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - monitoring
+
+  usdt-indexer:
+    build:
+      context: .
+    container_name: usdt-indexer
+    environment:
+      INFURA_PROJECT_ID: <INFURA_PROJECT_ID>
+      USDT_ADDRESS: 0xdAC17F958D2ee523a2206206994597C13D831ec7
+    ports:
+      - '3000:3000'
+    networks:
+      - monitoring
+
+networks:
+  monitoring:
+    driver: bridge

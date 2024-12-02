@@ -43,4 +43,26 @@
    minikube service blockscout-frontend-svc
    ```
 6. HorizontalPodAutoscaler is enabled for Blockscout deployment, refer to [blockscout-hpa.yaml](./blockscout-stack/templates/blockscout-hpa.yaml)
-7. Charts release is packaged via Github [actions](./.github/workflows/release.yaml) and published on https://jackht7.github.io/ata-devops/blockscout-stack
+7. Charts release is packaged via Github [actions](./.github/workflows/release.yaml) and published on https://jackht7.github.io/ata-devops/index.yaml
+
+## Mission 3: Contract Indexer
+
+1. Setup a Prometheus instance in Grafana Cloud.
+2. Replace the Prometheus `QUERY_ENDPOINT`, `INSTANCE_ID` and `API_TOKEN` in [prometheus.yml](./contract-indexer/prometheus/prometheus.yml).
+3. Replace the `INFURA_PROJECT_ID` in [docker-compose.yml](./contract-indexer/docker-compose.yml)
+4. Run the indexer and Prometheus server.
+   ```bash
+   cd contract-indexer
+   docker compose up
+   ```
+5. Setup the Grafana dashboard to show the metrics (`usdt_tx_count_total`, `usdt_tokens_transferred_total`) collected from [indexer](./contract-indexer/indexer.js). In the dashboard, choose the Prometheus instance as data source and set the following queries.
+   ```
+   rate(usdt_tx_count_total{status="success"}[$__rate_interval])
+   rate(usdt_tokens_transferred_total{status="success"}[$__rate_interval])
+   ```
+   Example dashboard:
+   ![dashboard](./misc/indexer.png)
+6. Create an alert rule that check if the metric,`usdt_tokens_transferred_total_in_one_transaction`, the total USDT tokens transferred in one transaction greater than 1 million.
+   ```
+   sum(usdt_tokens_transferred_total_in_one_transaction) by (transactionHash) > 1000000
+   ```

@@ -1,0 +1,11 @@
+global:
+  scrape_interval: 15s
+remote_write:
+  - url: <QUERY_ENDPOINT>
+    basic_auth:
+      username: <INSTANCE_ID>
+      password: <API_TOKEN>
+scrape_configs:
+  - job_name: usdt-indexer
+    static_configs:
+      - targets: ['usdt-indexer:3000']
