@@ -1,0 +1,10 @@
+bootnode.key
+data/keystore/*
+!data/keystore/example
+
+# Node modules
+node_modules/
+
+# Build directories
+dist/
+build/

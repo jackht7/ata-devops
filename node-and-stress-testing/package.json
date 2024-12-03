@@ -1,0 +1,19 @@
+{
+  "name": "load-test",
+  "version": "1.0.0",
+  "main": "load-test.js",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "prepare": "node encode.js",
+    "start": "node load-test.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "ethers": "^6.13.4",
+    "k6": "^0.0.0"
+  }
+}
