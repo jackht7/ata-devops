@@ -1,0 +1,3 @@
+bootnode.key
+data/keystore/*
+!data/keystore/example

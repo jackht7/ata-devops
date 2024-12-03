@@ -66,3 +66,41 @@
    ```
    sum(usdt_tokens_transferred_total_in_one_transaction) by (transactionHash) > 1000000
    ```
+
+## Mission 3: Stress Testing
+
+1. Generate the nodekey and the enode value of the bootnode.
+   ```bash
+   cd node-and-stress-testing
+   bootnode -genkey bootnode.key
+   bootnode -nodekeyhex <NODEKEYHEX_FROM_FILE> -writeaddress
+   ```
+   The enode URL can be constructed from the value using the pattern below.
+   ```
+   enode://<ENODE_VALUE>@<IP_ADDRESS>:<PORT>
+   ```
+2. Replace the `NODEKEYHEX` and `ENODE_VALUE` with the values generated above in [docker-compose.yml](./node-and-stress-testing/docker-compose.yml)
+3. Docker build and Run the private geth network.
+   ```bash
+   docker compose build
+   docker compose up
+   ```
+4. To ensure the private blockchain is running, check if the latest block number can be retrived via RPC node. The number returned should be greater than 0x0.
+   ```bash
+   curl --location --request POST 'localhost:8545' \
+   --header 'Content-Type: application/json' \
+   --data-raw '{
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "eth_blockNumber",
+    "params": []
+   }'
+   ```
+5. Copy the keystore generated from geth-client container to local.
+   ```bash
+   docker ps
+   docker cp miner:/root/.ethereum/keystore ./data/keystore
+   ```
+6. Import the account to Metamask using the file and password.
+7. Deploy an ERC20 smart contract [MyToken.sol](./node-and-stress-testing//contract/MyToken.sol) to the private blockchain via [Remix](https://remix.ethereum.org/).
+8.

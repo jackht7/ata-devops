@@ -1,0 +1,21 @@
+{
+  "address": "",
+  "crypto": {
+    "cipher": "",
+    "ciphertext": "",
+    "cipherparams": {
+      "iv": ""
+    },
+    "kdf": "scrypt",
+    "kdfparams": {
+      "dklen": 32,
+      "n": 262144,
+      "p": 1,
+      "r": 8,
+      "salt": ""
+    },
+    "mac": ""
+  },
+  "id": "",
+  "version": 3
+}
